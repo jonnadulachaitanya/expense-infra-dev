@@ -7,6 +7,7 @@ module "app_alb" {
   internal = true #So no public access
   security_groups = [data.aws_ssm_parameter.app_alb_sg_id.value]
   create_security_group = false
+  enable_deletion_protection = false # I have disable as it wont allow you to destroy.
 
   
 
