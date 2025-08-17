@@ -8,7 +8,7 @@ terraform {
 
     backend "s3" {
         bucket = "chaitanya-project-remote-state"
-        key = "expense_sg"
+        key = "expense_infra_dev_sg"
         region = "us-east-1"
         dynamodb_table = "chaitanya-locking"
     }

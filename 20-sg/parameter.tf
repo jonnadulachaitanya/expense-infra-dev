@@ -25,6 +25,13 @@ resource "aws_ssm_parameter" "bastion_sg_id" {
 resource "aws_ssm_parameter" "ansible_sg_id" {
     type = "String"
     name = "/${var.project_name}/${var.environment}/ansible_sg_id"
-    value = module.bastion_sg.ansible_sg_id
+    value = module.ansible_sg.ansible_sg_id
+}
+
+
+resource "aws_ssm_parameter" "app_alb_sg_id" {
+    type = "String"
+    name = "/${var.project_name}/${var.environment}/app_alb_sg_id"
+    value = module.app_alb_sg.sg_id
 }
 
