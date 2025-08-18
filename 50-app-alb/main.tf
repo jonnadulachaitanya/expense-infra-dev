@@ -43,7 +43,7 @@ module "records" {
 
   records = [
     {
-      name    = "*.app-alb-${var.environment}" #*.app-dev.chaitanyaproject.online
+      name    = "*.app-alb-${var.environment}" #*.app-alb-dev.chaitanyaproject.online
       type    = "A"
       alias   = {
         name    = module.app_alb.dns_name
