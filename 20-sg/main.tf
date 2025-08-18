@@ -100,6 +100,7 @@ resource "aws_security_group_rule" "mysql_accepting_from_backend" {
 #     security_group_id = module.backend_sg.backend_sg_id    
 # }
 
+
 # resource "aws_security_group_rule" "frontend_accepting_from_public" {
 #     type = "ingress"
 #     from_port = 80
