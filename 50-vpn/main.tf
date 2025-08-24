@@ -5,11 +5,11 @@ resource "aws_key_pair" "openvpn" {
 
 
 module "vpn" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
+  source = "terraform-aws-modules/ec2-instance/aws"
 
-  name = local.resource_name
-  ami = data.aws_ami.joindevops.id
-  key_name = aws_key_pair.openvpn.key_name
+  name                        = local.resource_name
+  ami                         = data.aws_ami.joindevops.id
+  key_name                    = aws_key_pair.openvpn.key_name
   associate_public_ip_address = true
 
   instance_type          = "t3.micro"
@@ -18,12 +18,12 @@ module "vpn" {
 
 
   tags = merge(
-        var.common_tags,
-        var.vpn_tags,
-        {
-            Name = local.resource_name
-        }
-    )
+    var.common_tags,
+    var.vpn_tags,
+    {
+      Name = local.resource_name
+    }
+  )
 
 }
 

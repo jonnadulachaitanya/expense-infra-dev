@@ -1,21 +1,21 @@
 variable "project_name" {
-    default = "expense"
+  default = "expense"
 }
 
 variable "environment" {
-    default = "development"
+  default = "development"
 }
 
 variable "common_tags" {
-    default = {
-        Project = "expense"
-        terraform = "true"
-        Environment = "dev"
-    }
+  default = {
+    Project     = "expense"
+    terraform   = "true"
+    Environment = "dev"
+  }
 }
 
 variable "vpn_tags" {
-    default = {
-        component = "bastion"
-    }
+  default = {
+    component = "bastion"
+  }
 }
