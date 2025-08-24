@@ -1,13 +1,13 @@
 output "vpc_id" {
-    value = module.vpc.vpc_id
+  value = module.vpc.vpc_id
 }
 
 output "ig_id" {
-    value = module.vpc.ig_id
+  value = module.vpc.ig_id
 }
 
 output "az_info" {
-    value = module.vpc.az_info
+  value = module.vpc.az_info
 }
 
 
@@ -26,13 +26,13 @@ output "az_info" {
 
 
 output "aws_vpc_default" {
-    value = module.vpc.aws_vpc_default 
+  value = module.vpc.aws_vpc_default
 }
 
 output "main_route_table_info" {
-    value = module.vpc.main_route_table_info
+  value = module.vpc.main_route_table_info
 }
 
 output "db_subnet_group_name" {
-    value = module.vpc.db_subnet_group_name
+  value = module.vpc.db_subnet_group_name
 }
