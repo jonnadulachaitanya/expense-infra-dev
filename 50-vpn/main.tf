@@ -16,6 +16,7 @@ module "vpn" {
   vpc_security_group_ids = [local.vpn_sg_id]
   subnet_id              = local.public_subnet_ids
 
+
   tags = merge(
         var.common_tags,
         var.vpn_tags,
@@ -25,3 +26,5 @@ module "vpn" {
     )
 
 }
+
+
