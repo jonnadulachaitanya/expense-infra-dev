@@ -19,3 +19,7 @@ variable "backend_tags" {
     component = "backend"
   }
 }
+
+variable "zone_id" {
+  default = "chaitanyaprojet.online"
+}

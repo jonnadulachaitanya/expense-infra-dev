@@ -112,7 +112,6 @@ resource "aws_autoscaling_group" "backend" {
   desired_capacity          = 2
   # force_delete              = true
   launch_template {
-    name    = local.resource_name
     id      = aws_launch_template.backend.id
     version = "$Latest"
   }
@@ -161,6 +160,23 @@ resource "aws_autoscaling_policy" "backend" {
     }
 
     target_value = 70.0
+  }
+}
+
+
+resource "aws_lb_listener_rule" "backend" {
+  listener_arn = aws_lb_listener.arn
+  priority     = 100
+
+  action {
+    type             = "forward"
+    target_group_arn = local.aws_lb_listener_arn
+  }
+
+  condition {
+    host_header {
+      values = ["${backend_tags.component}.app-${var.environment}.${var.zone_id}"]
+    }
   }
 }
 
