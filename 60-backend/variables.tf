@@ -21,5 +21,5 @@ variable "backend_tags" {
 }
 
 variable "zone_id" {
-  default = "chaitanyaprojet.online"
+  default = "chaitanyaproject.online"
 }
