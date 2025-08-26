@@ -70,7 +70,7 @@ resource "null_resource" "backend_delete" {
 resource "aws_lb_target_group" "backend" {
   name     = local.resource_name
   port     = 8080
-  protocol = "TCP"
+  protocol = "HTTP"
   vpc_id   = local.vpc_id
 
   health_check {
@@ -165,17 +165,17 @@ resource "aws_autoscaling_policy" "backend" {
 
 
 resource "aws_lb_listener_rule" "backend" {
-  listener_arn = aws_lb_listener.arn
+  listener_arn = local.app_alb_listener_arn
   priority     = 100
 
   action {
     type             = "forward"
-    target_group_arn = local.aws_lb_listener_arn
+    target_group_arn = aws_lb_target_group.backend.arn
   }
 
   condition {
     host_header {
-      values = ["${backend_tags.component}.app-${var.environment}.${var.zone_id}"]
+      values = ["${var.backend_tags.component}.app-${var.environment}.${var.zone_id}"]
     }
   }
 }

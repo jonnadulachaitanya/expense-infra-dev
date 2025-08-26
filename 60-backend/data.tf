@@ -11,7 +11,7 @@ data "aws_ssm_parameter" "vpc_id" {
 }
 
 data "aws_ssm_parameter" "aws_lb_listener" {
-  name = "/${var.project_name}/${var.environment}/aws_lb_listener"
+  name = "/${var.project_name}/${var.environment}/app_alb_listener"
 }
 
 
