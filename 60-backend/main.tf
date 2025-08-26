@@ -113,7 +113,7 @@ resource "aws_autoscaling_group" "backend" {
   # force_delete              = true
   launch_template {
     name    = local.resource_name
-    id      = aws_ami_from_instance.backend.id
+    id      = aws_launch_template.backend.id
     version = "$Latest"
   }
 
@@ -124,7 +124,7 @@ resource "aws_autoscaling_group" "backend" {
     preferences {
       min_healthy_percentage = 50
     }
-    triggers = [launch_template]
+    triggers = ["launch_template"]
   }
 
 
