@@ -1,58 +1,58 @@
 variable "project_name" {
-    default = "expense"
+  default = "expense"
 }
 
 variable "environment" {
-    default = "development"
+  default = "development"
 }
 
 variable "common_tags" {
-    default = {
-        Project = "expense"
-        terraform = "true"
-        Environment = "dev"
-    }
+  default = {
+    Project     = "expense"
+    terraform   = "true"
+    Environment = "dev"
+  }
 }
 
 variable "mysql_sg_tags" {
-    default = {
-        component = "mysql"
-    }
+  default = {
+    component = "mysql"
+  }
 }
 
 variable "backend_sg_tags" {
-    default = {
-        component = "backend"
-    }
+  default = {
+    component = "backend"
+  }
 }
 
 variable "frontend_sg_tags" {
-    default = {
-        component = "frontend"
-    }
+  default = {
+    component = "frontend"
+  }
 }
 variable "bastion_sg_tags" {
-    default = {
-        component = "frontend"
-    }
+  default = {
+    component = "frontend"
+  }
 }
 
 variable "ansible_sg_tags" {
-    default = {
-        component = "ansible"
-    }
+  default = {
+    component = "ansible"
+  }
 }
 
 variable "app_alb_sg_tags" {
-    default = {
-        component = "app-alb"
-    }
+  default = {
+    component = "app-alb"
+  }
 }
 
 variable "vpn_sg_tags" {
-    default = {
-        component = "vpn"
-    }
+  default = {
+    component = "vpn"
+  }
 }
 
 # variable "web_alb__sg_tags" {
