@@ -111,7 +111,7 @@ resource "aws_autoscaling_group" "backend" {
   health_check_type         = "ELB"
   desired_capacity          = 2
   #force_delete              = true
-  vpc_zone_identifier = local.private_subnet_id
+  vpc_zone_identifier = [local.private_subnet_id]
 
   instance_refresh {
     strategy = "Rolling"
