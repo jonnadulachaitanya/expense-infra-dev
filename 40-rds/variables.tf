@@ -1,26 +1,26 @@
 variable "project_name" {
-    default = "expense"
+  default = "expense"
 }
 
 variable "environment" {
-    default = "development"
+  default = "development"
 }
 
 variable "common_tags" {
-    default = {
-        Project = "expense"
-        terraform = "true"
-        Environment = "dev"
-    }
+  default = {
+    Project     = "expense"
+    terraform   = "true"
+    Environment = "dev"
+  }
 }
 
 variable "rds_tags" {
-    default = {
-        component = "mysql"
-    }
+  default = {
+    component = "mysql"
+  }
 }
 
 variable "zone_name" {
-    default = "chaitanyaproject.online"
-    
+  default = "chaitanyaproject.online"
+
 }

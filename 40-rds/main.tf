@@ -8,26 +8,26 @@ module "mysql" {
   instance_class    = "db.t3.micro"
   allocated_storage = 5
 
-  db_name  = "transactions"
-  username = "root"
+  db_name                     = "transactions"
+  username                    = "root"
   manage_master_user_password = false
-  password = "ExpenseApp1"
-  port     = "3306"
+  password                    = "ExpenseApp1"
+  port                        = "3306"
 
 
   #iam_database_authentication_enabled = true (we do not need this as of now)
 
   vpc_security_group_ids = [local.mysql_sg_id]
-  skip_final_snapshot = true
+  skip_final_snapshot    = true
 
-#   maintenance_window = "Mon:00:00-Mon:03:00"
-#   backup_window      = "03:00-06:00"
+  #   maintenance_window = "Mon:00:00-Mon:03:00"
+  #   backup_window      = "03:00-06:00"
 
   # Enhanced Monitoring - see example for details on how to create the role
   # by yourself, in case you don't want to create it automatically
-#   monitoring_interval    = "30"
-#   monitoring_role_name   = "MyRDSMonitoringRole"
-#   create_monitoring_role = true
+  #   monitoring_interval    = "30"
+  #   monitoring_role_name   = "MyRDSMonitoringRole"
+  #   create_monitoring_role = true
 
   tags = merge(
     var.common_tags,
@@ -77,15 +77,15 @@ module "mysql" {
 
 
 module "records" {
-  source  = "terraform-aws-modules/route53/aws//modules/records"
+  source = "terraform-aws-modules/route53/aws//modules/records"
 
   zone_name = var.zone_name
 
   records = [
     {
-      name    = "mysql-${var.environment}"
-      type    = "CNAME"
-      ttl     = 1
+      name = "mysql-${var.environment}"
+      type = "CNAME"
+      ttl  = 1
       records = [
         module.mysql.db_instance_address
       ]
