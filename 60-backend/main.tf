@@ -103,6 +103,72 @@ resource "aws_launch_template" "backend" {
 }
 
 
+resource "aws_autoscaling_group" "backend" {
+  name                      = local.resource_name
+  max_size                  = 10
+  min_size                  = 2
+  health_check_grace_period = 60
+  health_check_type         = "ELB"
+  desired_capacity          = 2
+  # force_delete              = true
+  launch_template {
+    name    = local.resource_name
+    id      = aws_ami_from_instance.backend.id
+    version = "$Latest"
+  }
+
+  vpc_zone_identifier = [local.private_subnet_id]
+
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50
+    }
+    triggers = [launch_template]
+  }
+
+
+
+  tag {
+    key                 = "Name"
+    value               = local.resource_name
+    propagate_at_launch = true
+  }
+
+  timeouts {
+    delete = "15m"
+  }
+
+  tag {
+    key                 = "project"
+    value               = "expense"
+    propagate_at_launch = false
+  }
+
+
+}
+
+resource "aws_autoscaling_policy" "backend" {
+
+  autoscaling_group_name = aws_autoscaling_group.backend.name
+  name                   = local.resource_name
+  policy_type            = "TargetTrackingScaling"
+  # ... other configuration ...
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = 70.0
+  }
+}
+
+
+
+
+
+
 
 
 
