@@ -67,4 +67,43 @@ resource "null_resource" "backend_delete" {
   depends_on = [aws_ami_from_instance.backend]
 }
 
+resource "aws_lb_target_group" "backend" {
+  name     = local.resource_name
+  port     = 8080
+  protocol = "TCP"
+  vpc_id   = local.vpc_id
+
+  health_check {
+    healthy_threshold   = 2 #2 requests success then it is fine
+    unhealthy_threshold = 2 #2 requests failed contineously then it is failed
+    interval            = 5 #every 5 sec
+    matcher             = "200-299"
+    path                = "/health"
+    port                = 8080
+    protocol            = "HTTP"
+    timeout             = 4 #need to get response before 4 sec.
+  }
+}
+
+resource "aws_launch_template" "backend" {
+  name                                 = local.resource_name
+  image_id                             = aws_ami_from_instance.backend.id
+  instance_initiated_shutdown_behavior = "terminate"
+  instance_type                        = "t2.micro"
+  vpc_security_group_ids               = [local.backend_sg_id]
+  update_default_version               = true
+
+  tag_specifications {
+    resource_type = "instance"
+
+    tags = {
+      Name = local.resource_name
+    }
+  }
+}
+
+
+
+
+
 
