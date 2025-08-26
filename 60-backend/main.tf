@@ -112,6 +112,10 @@ resource "aws_autoscaling_group" "backend" {
   desired_capacity          = 2
   #force_delete              = true
   vpc_zone_identifier = [local.private_subnet_id]
+  launch_template {
+    id      = aws_launch_template.backend.id
+    version = "$Latest"
+  }
 
   instance_refresh {
     strategy = "Rolling"
