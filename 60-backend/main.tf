@@ -36,6 +36,7 @@ resource "null_resource" "backend" {
   }
 
   provisioner "remote-exec" {
+    # Bootstrap script called with private_ip of each node in the cluster
     inline = [
       "chmod +x /tmp/backend.sh",
       "sudo sh /tmp/backend.sh ${var.backend_tags.component} ${var.environment}"
@@ -111,12 +112,13 @@ resource "aws_autoscaling_group" "backend" {
   health_check_type         = "ELB"
   desired_capacity          = 2
   #force_delete              = true
-  vpc_zone_identifier = [local.private_subnet_id]
-  target_group_arns   = [aws_lb_target_group.backend.arn]
+  target_group_arns = [aws_lb_target_group.backend.arn]
+
   launch_template {
     id      = aws_launch_template.backend.id
     version = "$Latest"
   }
+  vpc_zone_identifier = [local.private_subnet_id]
 
   instance_refresh {
     strategy = "Rolling"
@@ -132,13 +134,14 @@ resource "aws_autoscaling_group" "backend" {
     propagate_at_launch = true
   }
 
+  # If instances are not healthy with in 15min, autoscaling will delete that instance
   timeouts {
     delete = "15m"
   }
 
   tag {
     key                 = "project"
-    value               = "expense"
+    value               = "Expense"
     propagate_at_launch = false
   }
 }
@@ -153,7 +156,7 @@ resource "aws_autoscaling_policy" "backend" {
       predefined_metric_type = "ASGAverageCPUUtilization"
     }
 
-    target_value = 75.0
+    target_value = 70.0
   }
 }
 
