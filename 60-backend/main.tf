@@ -172,7 +172,7 @@ resource "aws_lb_listener_rule" "backend" {
 
   condition {
     host_header {
-      values = ["${var.backend_tags.component}.app-${var.environment}.${var.zone_id}"]
+      values = ["${var.backend_tags.component}.app-${var.environment}.${var.zone_name}"]
     }
   }
 }
