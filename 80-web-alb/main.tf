@@ -5,7 +5,7 @@ module "web_alb" {
   vpc_id                     = local.vpc_id
   subnets                    = local.public_subnet_ids
   internal                   = true #So no public access
-  security_groups            = [data.aws_ssm_parameter.web_alb_sg_id.value]
+  security_groups            = [local.web_alb_sg_id]
   create_security_group      = false
   enable_deletion_protection = false # I have disable as it wont allow you to destroy.
 
@@ -19,7 +19,7 @@ module "web_alb" {
 }
 
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.front_end.arn
+  load_balancer_arn = module.web_alb.arn
   port              = "80"
   protocol          = "HTTP"
 
