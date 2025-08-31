@@ -3,7 +3,7 @@ resource "aws_acm_certificate" "expense" {
   validation_method = "DNS"
 
   tags = merge(
-    common_tags,
+    var.common_tags,
     {
       Name = local.resource_name
     }
@@ -29,5 +29,5 @@ resource "aws_route53_record" "expense" {
 
 resource "aws_acm_certificate_validation" "backend" {
   certificate_arn         = aws_acm_certificate.expense.arn
-  validation_record_fqdns = [for record in aws_route53_record.example : record.fqdn]
+  validation_record_fqdns = [for record in aws_route53_record.expense : record.fqdn]
 }
