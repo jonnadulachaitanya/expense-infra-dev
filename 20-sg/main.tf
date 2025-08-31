@@ -61,16 +61,6 @@ module "app_alb_sg" {
   vpc_id       = local.vpc_id
 }
 
-module "web_alb_sg" {
-  source       = "git::https://github.com/jonnadulachaitanya/terraform-aws-security-group.git?ref=main"
-  Project_name = var.project_name
-  environment  = var.environment
-  common_tags  = var.common_tags
-  sg_name      = "web-alb"
-  sg_tags      = var.app_alb_sg_tags
-  vpc_id       = local.vpc_id
-}
-
 module "vpn_sg" {
   source       = "git::https://github.com/jonnadulachaitanya/terraform-aws-security-group.git?ref=main"
   Project_name = var.project_name
@@ -274,23 +264,13 @@ resource "aws_security_group_rule" "backend_accepting_from_vpn_8080" {
   security_group_id        = module.backend_sg.sg_id
 }
 
-resource "aws_security_group_rule" "backend_accepting_from_vpn_8080" {
-  type                     = "ingress"
-  from_port                = 8080
-  to_port                  = 8080
-  protocol                 = "tcp"
-  source_security_group_id = module.vpn_sg.sg_id
-  security_group_id        = module.backend_sg.sg_id
-}
-
-
 resource "aws_security_group_rule" "web_alb_accepting_from_http" {
   type              = "ingress"
   from_port         = 80
   to_port           = 80
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = module.web_sg.sg_id
+  security_group_id = module.frontend_sg.sg_id
 }
 
 resource "aws_security_group_rule" "web_alb_accepting_from_https" {
@@ -299,5 +279,32 @@ resource "aws_security_group_rule" "web_alb_accepting_from_https" {
   to_port           = 443
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = module.web_sg.sg_id
+  security_group_id = module.frontend_sg.sg_id
+}
+
+resource "aws_security_group_rule" "frontend_accepting_from_vpn" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  source_security_group_id = module.vpn_sg.sg_id
+  security_group_id        = module.frontend_sg.sg_id
+}
+
+resource "aws_security_group_rule" "frontend_accepting_from_web_alb" {
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  source_security_group_id = module.web_alb_sg.sg_id
+  security_group_id        = module.frontend_sg.sg_id
+}
+
+resource "aws_security_group_rule" "backend_alb_accepting_from_frontend" {
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  source_security_group_id = module.frontend_sg.sg_id
+  security_group_id        = module.app_alb_sg.sg_id
 }
