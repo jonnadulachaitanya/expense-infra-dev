@@ -63,7 +63,7 @@ module "records" {
       type = "A"
       alias = {
         name    = module.web_alb.dns_name
-        zone_id = var.zone_id
+        zone_id = module.web_alb.zone_id
       }
       allow_overwrite = true
     }

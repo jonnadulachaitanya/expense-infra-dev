@@ -24,7 +24,3 @@ variable "web_alb_tags" {
   }
 }
 
-variable "zone_id" {
-  default = "Z07531171JTKXQEA9NV0O"
-}
-
