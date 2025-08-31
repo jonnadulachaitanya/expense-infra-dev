@@ -41,3 +41,9 @@ resource "aws_ssm_parameter" "vpn_sg_id" {
   value = module.vpn_sg.sg_id
 }
 
+resource "aws_ssm_parameter" "web_alb_sg_id" {
+  type  = "String"
+  name  = "/${var.project_name}/${var.environment}/web_alb_sg_id"
+  value = module.web_alb_sg.sg_id
+}
+
