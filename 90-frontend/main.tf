@@ -53,7 +53,6 @@ resource "aws_ami_from_instance" "frontend" {
   name               = local.resource_name
   source_instance_id = module.frontend.id
   depends_on         = [aws_ec2_instance_state.frontend]
-
 }
 
 resource "null_resource" "delete_instance" {
