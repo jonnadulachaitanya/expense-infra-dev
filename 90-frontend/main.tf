@@ -118,7 +118,7 @@ resource "aws_autoscaling_group" "frontend" {
   # force_delete              = true
 
   launch_template {
-    id      = aws_ami_from_instance.frontend.id
+    id      = aws_launch_template.frontend.id
     version = "$Latest"
   }
 
