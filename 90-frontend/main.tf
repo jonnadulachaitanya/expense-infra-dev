@@ -180,7 +180,7 @@ resource "aws_lb_listener_rule" "frontend" {
 
   condition {
     host_header {
-      values = ["expense-${var.frontend_tags.component}.${var.environment}.${var.zone_name}"]
+      values = ["expense-${var.environment}.${var.zone_name}"] #expense-development.chaitanyaproject.online
     }
   }
 }

@@ -114,6 +114,9 @@ resource "aws_autoscaling_group" "backend" {
   #force_delete              = true
   target_group_arns = [aws_lb_target_group.backend.arn]
 
+  # Specifies the launch template that the Auto Scaling Group will use
+  # This template defines the AMI, instance type, security groups, and other configuration
+  # "$Latest" ensures the ASG always uses the most recent version of the template
   launch_template {
     id      = aws_launch_template.backend.id
     version = "$Latest"
