@@ -232,7 +232,7 @@ resource "aws_security_group_rule" "vpn_public_1194" {
   type              = "ingress"
   from_port         = 1194
   to_port           = 1194
-  protocol          = "tcp"
+  protocol          = "udp" #Usually we were used tcp but, we are currently using UDP for fast as compared to tcp
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = module.vpn_sg.sg_id
 }

@@ -15,7 +15,7 @@ variable "common_tags" {
 }
 
 variable "zone_name" {
-  default = "chaitanyaproject.online"
+  default = "chaitanyaproject.shop"
 }
 
 variable "app_alb_tags" {
