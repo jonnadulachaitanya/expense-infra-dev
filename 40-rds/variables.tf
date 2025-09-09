@@ -21,6 +21,6 @@ variable "rds_tags" {
 }
 
 variable "zone_name" {
-  default = "chaitanyaproject.shop"
+  default = "chaitanyaproject.online"
 
 }
