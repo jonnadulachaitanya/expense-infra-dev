@@ -16,9 +16,9 @@ variable "common_tags" {
 
 
 variable "zone_name" {
-  default = "chaitanyaproject.online"
+  default = "chaitanyaproject.shop"
 }
 
 variable "zone_id" {
-  default = "Z07531171JTKXQEA9NV0O"
+  default = "Z011062425344H8RBUU56"
 }

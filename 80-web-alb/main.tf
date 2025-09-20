@@ -4,7 +4,7 @@ module "web_alb" {
   name                       = "${local.resource_name}-web-alb"
   vpc_id                     = local.vpc_id
   subnets                    = local.public_subnet_ids
-  internal                   = true #So no public access
+  internal                   = false #if it is true So no public access
   security_groups            = [local.web_alb_sg_id]
   create_security_group      = false
   enable_deletion_protection = false # I have disable as it wont allow you to destroy.
